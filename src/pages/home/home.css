@@ -48,7 +48,7 @@
     border-bottom-left-radius: 5px;
 }
 .home .anticon {
-    font-size: 28px;
+    font-size: 26px;
 }
 .home .num .detail {
     margin-left: 15px;
@@ -61,4 +61,8 @@
     font-size: 14px;
     text-align: center;
     color: #999999;
+}
+.home .graph{
+    display: flex;
+    margin-top: 20px;
 }

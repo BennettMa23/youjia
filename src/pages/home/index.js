@@ -5,6 +5,7 @@ import * as echarts from "echarts";
 
 import "./home.css";
 import { getData } from "../../api";
+import MyECharts from "../../components/Echarts";
 
 const columns = [
   {
@@ -68,6 +69,8 @@ const iconToElement = (name) => React.createElement(Icon[name]);
 
 const Home = () => {
   const userImg = require("../../assets/images/user.jpg");
+  // 创建echart响应数据
+  const [echartData, setEchartData] = useState({});
   // 使用useEffect钩子来处理组件的副作用
   // 这里在组件挂载时执行一次数据获取操作
   //dom首次渲染完成
@@ -77,31 +80,57 @@ const Home = () => {
       // 打印获取到的原始数据，用于调试
       console.log(data, "res");
       // 从获取的数据中提取tableData
-      const { tableData } = data.data.data;
+      const { tableData,orderData,userData,videoData } = data.data.data;
       // 打印tableData，用于调试
       console.log(tableData, "tableData");
       // 使用setTableData更新组件的状态
       setTableData(tableData);
-    });
-    // 基于准备好的dom，初始化echarts实例
-    var myChart = echarts.init(document.getElementById("echarts"));
-    // 绘制图表
-    myChart.setOption({
-      title: {
-        text: "ECharts 入门示例",
-      },
-      tooltip: {},
-      xAxis: {
-        data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"],
-      },
-      yAxis: {},
-      series: [
-        {
-          name: "销量",
-          type: "bar",
-          data: [5, 20, 36, 10, 10, 20],
+      
+      const order = orderData;
+      const xData = order.date
+      const keyArray = Object.keys(order.data[0])
+      const series = []
+      keyArray.forEach(key => {
+        series.push({
+          name: key,
+          data: order.data.map(item => item[key]),
+          type: 'line',
+        })
+      });
+
+      // console.log(xData, series,keyArray);
+      console.log(orderData, "echartData");
+      setEchartData({
+        order:{
+          xData,
+          series
         },
-      ],
+        user:{
+          xData: userData.map(item => item.date),
+          series: [
+            {
+              name: '新增用户',
+              data: userData.map(item => item.new),
+              type: 'bar',
+            },
+            {
+              name: '活跃用户',
+              data: userData.map(item => item.active),
+              type: 'bar',
+            }
+          ]
+        },
+        video:{
+          series:[
+            {
+              data:videoData,
+              type:'pie'
+            }
+            
+          ]
+        }
+        
+      })
     });
   }, []);
   //定义table数据
@@ -152,7 +181,11 @@ const Home = () => {
             );
           })}
         </div>
-        <div className="chart"></div>
+        {echartData.order && <MyECharts chartData={echartData.order} style={{ height: "280px"}} />}
+        <div className="graph">
+          {echartData.user && <MyECharts chartData={echartData.user} style={{ height: "240px", width:'50%'}} />}
+          {echartData.video && <MyECharts chartData={echartData.video} isAxisChart={false} style={{ height: "260px", width:'50%'}} />}
+        </div>
       </Col>
     </Row>
   );
