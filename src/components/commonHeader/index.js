@@ -1,9 +1,9 @@
 import React from "react";
-
 import "./index.css";
-
 import { Button, Layout, Menu, Avatar, Dropdown } from "antd";
-import { MenuFoldOutlined } from "@ant-design/icons";
+import { MenuFoldOutlined,MenuUnfoldOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { collapseMenu } from "../../store/reducers/tab";
 
 const { Header, Content } = Layout;
 
@@ -28,22 +28,27 @@ const CommonHeader = ({ collapsed }) => {
     },
   ];
 
+  // 创建dispath
+  const dispatch = useDispatch();
+
   //点击展开收起
   const setCollapsed = () => {
     console.log(collapsed);
+    dispatch(collapseMenu()); // 切换收起状态
   };
   return (
     <Header className="header-container">
       <Button
         type="text"
-        // icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+        icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         // onClick={() => setCollapsed(!collapsed)}
-        icon={<MenuFoldOutlined />}
+        // icon={<MenuFoldOutlined />}
         style={{
           fontSize: "16px",
-          width: 64,
-          height: 32,
+          width: 46,
+          height: 30,
           background: "#fff",
+          marginLeft: -20,
         }}
         onClick={()=>setCollapsed()}
       />

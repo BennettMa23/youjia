@@ -25,11 +25,13 @@ const items = MenuConfig.map((icon) => {
   return child
 });
 
-const CommonAsider = () => {
+const CommonAsider = ({collapsed}) => {
+  // console.log(collapsed, "commonAsider");
   return (
     // <Sider trigger={null} collapsible collapsed={collapsed}>
-    <Sider>
-      <h3 className="app-name">后台管理系统</h3>
+    <Sider trigger={null} collapsed={collapsed}>
+      {/* <h3 className="app-name">后台管理系统</h3> */}
+      <h3 className="app-name">{collapsed ? "优佳" : "优佳后台管理系统"}</h3>
       <Menu
         theme="dark"
         mode="inline"

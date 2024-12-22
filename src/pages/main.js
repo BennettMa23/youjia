@@ -10,6 +10,7 @@ import { Button, Layout, Menu, theme } from "antd";
 import CommonAsider from "../components/commonAside";
 import CommonHeader from "../components/commonHeader";
 import { useSelector } from 'react-redux'
+import { Outlet } from "react-router-dom";
 
 
 const { Header, Sider, Content } = Layout;
@@ -64,7 +65,7 @@ const Main = () => {
             borderRadius: borderRadiusLG,
           }}
         >
-          Content
+          <Outlet />
         </Content>
       </Layout>
     </Layout>
