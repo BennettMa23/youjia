@@ -3,6 +3,8 @@ import MenuConfig from "../../config";
 import * as Icon from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { selectMenuList } from "../../store/reducers/tab";
 
 const { Header, Sider, Content } = Layout;
 
@@ -31,8 +33,30 @@ const items = MenuConfig.map((icon) => {
 const CommonAsider = ({ collapsed }) => {
   // console.log(collapsed, "commonAsider");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  //添加数据到store
+  const setTabsList = (val) => {
+    dispatch(selectMenuList(val));
+  }
   //点击菜单
   const selectMenu = (e) => {
+    let data
+    MenuConfig.forEach((item) => {
+      if (item.path === e.keyPath[e.keyPath.length - 1]) {
+        data = item;
+        //如果有二级菜单
+        if (e.keyPath.length > 1){
+          data = item.children.find(child => {
+            return child.path === e.key;
+          });
+        }
+      }
+    });
+    setTabsList({
+      path: data.path,
+      name: data.name,
+      label: data.label,
+    });
     navigate(e.key);
   };
   return (
