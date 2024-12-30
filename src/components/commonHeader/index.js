@@ -4,10 +4,17 @@ import { Button, Layout, Menu, Avatar, Dropdown } from "antd";
 import { MenuFoldOutlined,MenuUnfoldOutlined } from "@ant-design/icons";
 import { useDispatch } from "react-redux";
 import { collapseMenu } from "../../store/reducers/tab";
+import { useNavigate } from "react-router-dom";
 
 const { Header, Content } = Layout;
 
 const CommonHeader = ({ collapsed }) => {
+  const navigate = useNavigate();
+  //登出
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
   const layout = () => {};
   const items = [
     {
@@ -21,7 +28,7 @@ const CommonHeader = ({ collapsed }) => {
     {
       key: "2",
       label: (
-        <a onClick={() => layout} target="_blank" rel="noopener noreferrer">
+        <a onClick={() => logout()} target="_blank" rel="noopener noreferrer">
           退出
         </a>
       ),
