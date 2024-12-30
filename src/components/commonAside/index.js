@@ -2,7 +2,10 @@ import React from "react";
 import MenuConfig from "../../config";
 import * as Icon from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
+import { useNavigate } from "react-router-dom";
+
 const { Header, Sider, Content } = Layout;
+
 
 // 动态获取icon
 const iconToElement = (name) => React.createElement(Icon[name]);
@@ -22,11 +25,16 @@ const items = MenuConfig.map((icon) => {
       };
     });
   }
-  return child
+  return child;
 });
 
-const CommonAsider = ({collapsed}) => {
+const CommonAsider = ({ collapsed }) => {
   // console.log(collapsed, "commonAsider");
+  const navigate = useNavigate();
+  //点击菜单
+  const selectMenu = (e) => {
+    navigate(e.key);
+  };
   return (
     // <Sider trigger={null} collapsible collapsed={collapsed}>
     <Sider trigger={null} collapsed={collapsed}>
@@ -40,6 +48,7 @@ const CommonAsider = ({collapsed}) => {
         style={{
           height: "100%",
         }}
+        onClick={selectMenu}
       />
     </Sider>
   );
