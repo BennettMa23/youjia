@@ -54,7 +54,7 @@
     margin-left: 15px;
 }
 .home .num .detail .num {
-    font-size: 30px;
+    font-size: 23px;
     margin-bottom: 10px;
 }
 .home .num .detail .text {
@@ -65,4 +65,5 @@
 .home .graph{
     display: flex;
     margin-top: 20px;
+    margin-left: 30px;
 }
