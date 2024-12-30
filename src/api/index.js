@@ -14,3 +14,24 @@ export const getUser = (params) => {
         params: params
     });
 };
+export const addUser = (data) => {
+    return http.request({
+        url: "/user/addUser",
+        method: "post",
+        data
+    });
+};
+export const editUser = (data) => {
+    return http.request({
+        url: "/user/editUser",
+        method: "post",
+        data
+    });
+};
+export const delUser = (data) => {
+    return http.request({
+        url: "/user/delUser",
+        method: "post",
+        data
+    });
+};
