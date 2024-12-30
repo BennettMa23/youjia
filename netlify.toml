@@ -1,0 +1,8 @@
+[[redirects]]
+    from="/*"
+    to="/index.html"
+    status=200
+# [[headers]]
+#   for = "/*"  # 应用于所有路径
+#   [headers.values]
+#     Content-Security-Policy = "default-src 'self'; connect-src 'self' http://61.177.54.154:3000;"
